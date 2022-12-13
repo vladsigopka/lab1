@@ -1,0 +1,21 @@
+{% extends "basic.html" %}
+{% block title %}Main{% endblock %}
+{% block content %}
+<div id="questions_list_div">
+    {% if questions %}
+
+        <ul>
+            {% for question in questions %}
+            {% if question.was_published_recently %}
+                <li class="quest"><a href="{% url 'detail' question.id %}" class="question_a">Question - {{question.question_text}} [{{question.author}}]</a> </li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+
+    {% else %}
+      <p>
+        Здесь пока нет вопросов!  
+      </p>
+    {% endif %}
+    </div>
+{% endblock %}

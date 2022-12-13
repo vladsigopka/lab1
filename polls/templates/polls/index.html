@@ -1,0 +1,29 @@
+{% extends "basic.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'style.css'%}">
+{% block content %}
+{% if latest_question_list %}
+
+<div class="jumbotronl">
+    {% for question in latest_question_list %}
+    {% if question.pub_date < question.ex_date or user.is_superuser %}
+    <div class="quest">
+        <div class="imgq">
+    <img src="{{ question.img.url }}" height="300">
+        </div>
+        <div class="polls">
+            <h5 class="card-title"><a href="{% url 'detail' question.id %}">{{question.question_text}}</a><br></h5>
+            <p class="card-text">Описание: {{ question.description }}<br></p>
+            <p> Активен до {{ question.ex_date }}<br> </p>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+
+    {% else %}
+    <p>
+        Нет вопросов!
+    </p>
+</div>
+{% endif %}
+{% endblock %}

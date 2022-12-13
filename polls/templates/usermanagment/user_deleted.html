@@ -1,0 +1,8 @@
+{% extends 'basic.html' %}
+{% block title %}Deleted{% endblock %}
+{% block content %}
+<div id="account_deleted_div">
+    <h1>Your account has been successfully deleted!</h1>
+    <a href="{% url 'register' %}" class="button">Зарегестрироваться</a>
+</div>
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "basic.html" %}
+{% block content %}
+<div class="jumbotron">
+<form action="{% url 'vote' question.id %}" method="post">
+    {% csrf_token %}
+
+             <img src="{{ question.img.url }}" height="300">
+            <h1>{{question.question_text}}</h1>
+        <p>Полное описание: {{ question.description2 }}</p>
+        {% if error_message %}<p><strong> {{error_message}}</strong></p>{% endif %}
+        {% for choice in question.choice_set.all %}
+        <!-- {% if voted %} -->
+            <h6>Вы уже проголосовали!</h6>
+        <!-- {% else %} -->
+        <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}">
+        <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label><br>
+        <!-- {% endif %} -->
+        {% endfor %}
+
+       {% for users in uservotes %}
+            {% if users.question == question.id %}
+            {% if users.user_id == user.id %}
+            <script>
+                let sub = document.getElementById('det_submit');
+                sub.outerHTML = ` <p class="det_warning">Вы уже проголосовали</p> <input id="det_submit" class="det_submit" type="submit" value="Посмотреть результат">`;
+                let flags = document.getElementsByClassName('det_choice')
+                for (let i = 0; i < flags.length; i++) {
+                    flags[i].setAttribute("disabled", '');
+                };
+            </script>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+
+<input type="submit" value="Vote" class="btn btn-dark btn-lg">
+</form>
+</div>
+{% endblock %}

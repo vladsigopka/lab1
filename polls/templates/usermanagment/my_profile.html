@@ -1,0 +1,15 @@
+{% extends 'basic.html' %}
+{% block title %}My profile{% endblock %}
+{% block content %}
+
+    <div id="my_profile_div">
+        <p class="usernamef">{{ user.username }}</p>
+        <img src="{{ user.avatar.url }}" alt="img" width="150" height="150">
+        <p>{{ user.full_name }}</p>
+        <p>{{ user.email }}</p>
+        <div id="profile_buttons">
+            <a href="{% url 'user_update' %}" class="profile_buttons">Изменить</a>
+            <a href="{% url 'user_delete' %}" class="profile_buttons">Удалить</a>
+        </div>
+    </div>
+{% endblock %}

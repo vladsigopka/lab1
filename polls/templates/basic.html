@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Document{% endblock %}</title>
+     {% load static %}
+    <link rel="stylesheet" href="../../static/style.css">
+</head>
+<body>
+  <header>
+    <div>
+          <a href="{% url 'index' %}" class="buttonb">All polls</a>
+      </div>
+      <div>
+          {% if user.is_authenticated %}
+            <a href="{% url 'logout'%}" class="buttonb">Logout</a>
+            <a href="{% url 'my_profile' %}" class="buttonb">My profile</a>
+          {% else %}
+            <a href="{% url 'login'%}" class="buttonb">Login</a>
+            <a href="{% url 'register' %}" class="buttonb">Register</a>
+          {% endif %}
+      </div>
+  </header>
+  {% block content %}{% endblock %}
+</body>
+</html>
